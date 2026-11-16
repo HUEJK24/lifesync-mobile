@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "LifeSync Mobile",
+    "slug": "lifesync-mobile",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.lifesync.mobile"
+    }
+  }
+}

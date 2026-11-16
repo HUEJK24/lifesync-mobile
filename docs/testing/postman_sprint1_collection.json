@@ -1,0 +1,42 @@
+{
+  "info": {
+    "name": "LifeSync Sprint 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/health" }
+    },
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Usuario\",\n  \"email\": \"usuario@correo.com\",\n  \"password\": \"ContrasenaSegura123\"\n}" },
+        "url": "{{baseUrl}}/api/v1/auth/register"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"usuario@correo.com\",\n  \"password\": \"ContrasenaSegura123\"\n}" },
+        "url": "{{baseUrl}}/api/v1/auth/login"
+      }
+    },
+    {
+      "name": "Me (protegido)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/v1/auth/me"
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "" },
+    { "key": "token", "value": "" }
+  ]
+}
