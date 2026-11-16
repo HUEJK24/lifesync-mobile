@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "LifeSync Sprint 2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Perfil - Obtener (protegido)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/v1/profile"
+      }
+    },
+    {
+      "name": "Perfil - Actualizar",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"blood_type\": \"O+\",\n  \"notes\": \"Sin observaciones\"\n}" },
+        "url": "{{baseUrl}}/api/v1/profile"
+      }
+    },
+    {
+      "name": "Alergias - Listar",
+      "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/api/v1/medical/allergies" }
+    },
+    {
+      "name": "Alergias - Crear",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"allergen\": \"Penicilina\",\n  \"severity\": \"Alta\",\n  \"reaction\": \"Urticaria\"\n}" },
+        "url": "{{baseUrl}}/api/v1/medical/allergies"
+      }
+    },
+    {
+      "name": "Medicamentos - Crear",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Ibuprofeno\",\n  \"dosage\": \"400mg\",\n  \"frequency\": \"Cada 8 horas\"\n}" },
+        "url": "{{baseUrl}}/api/v1/medical/medications"
+      }
+    },
+    {
+      "name": "Contactos - Crear",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Contacto Emergencia\",\n  \"relationship\": \"Familiar\",\n  \"phone\": \"5550000000\",\n  \"is_primary\": true\n}" },
+        "url": "{{baseUrl}}/api/v1/contacts"
+      }
+    },
+    {
+      "name": "Negativa - Sin JWT",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/v1/profile" }
+    },
+    {
+      "name": "Negativa - JWT inválido",
+      "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer token_invalido" }], "url": "{{baseUrl}}/api/v1/profile" }
+    },
+    {
+      "name": "Negativa - Datos inválidos alergia",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"severity\": \"Alta\"\n}" },
+        "url": "{{baseUrl}}/api/v1/medical/allergies"
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "" },
+    { "key": "token", "value": "" }
+  ]
+}

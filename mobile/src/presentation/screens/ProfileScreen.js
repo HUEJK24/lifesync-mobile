@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Button, Text, StyleSheet, ScrollView } from 'react-native';
 import FormField from '../components/FormField';
 import { LoadingState, ErrorState } from '../components/StateView';
+import { CameraPlaceholder, LocationPlaceholder } from '../components/SensorPlaceholders';
 import { getProfile, updateProfile } from '../../data/remote/medicalApi';
 
 export default function ProfileScreen() {
@@ -43,7 +44,10 @@ export default function ProfileScreen() {
       <FormField label="Notas" value={form.notes} multiline onChangeText={(v)=>setForm({...form,notes:v})} />
       {msg ? <Text style={styles.ok}>{msg}</Text> : null}
       <Button title={saving ? 'Guardando...' : 'Guardar perfil'} onPress={save} disabled={saving} />
+      <Text style={styles.h}>Preparación de sensores</Text>
+      <CameraPlaceholder />
+      <LocationPlaceholder />
     </ScrollView>
   );
 }
-const styles = StyleSheet.create({ c:{padding:24}, ok:{color:'green', marginBottom:12} });
+const styles = StyleSheet.create({ c:{padding:24}, ok:{color:'green', marginBottom:12}, h:{fontSize:18,fontWeight:'700',marginTop:20} });
