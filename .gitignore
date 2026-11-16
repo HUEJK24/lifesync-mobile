@@ -12,3 +12,7 @@ web-build/
 coverage/
 *.jks
 *.keystore
+
+# Configuración local (no desplegar)
+opencode.jsonc
+skills/
