@@ -8,6 +8,9 @@ export function CameraPlaceholder() {
     <View style={styles.box}>
       <Text style={styles.title}>Cámara / Escaneo de recetas</Text>
       <Text style={styles.sub}>Estado del permiso: {state}</Text>
+      {state === 'idle' ? (
+        <Text style={styles.info}>LifeSync necesita la cámara para escanear recetas médicas.</Text>
+      ) : null}
       {!granted ? (
         <Button title="Solicitar permiso de cámara" onPress={request} disabled={state === 'requesting'} />
       ) : (
@@ -26,6 +29,9 @@ export function LocationPlaceholder() {
     <View style={styles.box}>
       <Text style={styles.title}>Ubicación (GPS)</Text>
       <Text style={styles.sub}>Estado del permiso: {state}</Text>
+      {state === 'idle' ? (
+        <Text style={styles.info}>LifeSync necesita la ubicación para geolocalizar incidentes médicos.</Text>
+      ) : null}
       {!granted ? (
         <Button title="Solicitar permiso de ubicación" onPress={request} disabled={state === 'requesting'} />
       ) : (
@@ -44,4 +50,5 @@ const styles = StyleSheet.create({
   sub: { color: '#555' },
   ok: { color: 'green' },
   warn: { color: '#b00020' },
+  info: { color: '#1565c0' },
 });
