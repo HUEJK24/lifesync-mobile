@@ -2,13 +2,12 @@ services:
   - type: web
     name: lifesync-backend
     runtime: node
-    plan: 0.5c-512mb
+    plan: free
     rootDir: backend
     region: oregon
     autoDeployTrigger: commit
     buildCommand: npm install
-    preDeployCommand: npm run migrate
-    startCommand: npm start
+    startCommand: npm run migrate && npm start
     healthCheckPath: /api/v1/health
     envVars:
       - key: DATABASE_URL
@@ -25,8 +24,7 @@ services:
 databases:
   - name: lifesync-db
     region: oregon
-    plan: 0.1c-256mb
-    diskSizeGB: 15
+    plan: free
     postgresMajorVersion: "18"
     databaseName: lifesync
     user: lifesync
