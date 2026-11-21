@@ -1,0 +1,24 @@
+- generic [ref=e60]:
+  - generic [ref=e64]:
+    - generic [ref=e65]:
+      - generic [ref=e66]: Tipo de sangre
+      - textbox [ref=e67]: O+
+    - generic [ref=e68]:
+      - generic [ref=e69]: Fecha de nacimiento (AAAA-MM-DD)
+      - textbox [ref=e70]: 1990-01-01
+    - generic [ref=e71]:
+      - generic [ref=e72]: Notas
+      - textbox [ref=e73]: Sin condiciones
+    - button "Guardar perfil" [ref=e74] [cursor=pointer]
+    - generic [ref=e76]: Preparación de sensores
+    - generic [ref=e77]:
+      - generic [ref=e78]: Cámara / Escaneo de recetas
+      - generic [ref=e79]: Componente visual preparado para captura cuando se habilite el sensor y permisos.
+    - generic [ref=e80]:
+      - generic [ref=e81]: Ubicación (GPS)
+      - generic [ref=e82]: Componente visual preparado para geolocalización bajo autorización del usuario.
+  - generic [ref=e83]:
+    - generic:
+      - generic:
+        - button "Go back" [ref=e85] [cursor=pointer]
+        - heading "Perfil médico" [level=1] [ref=e88]

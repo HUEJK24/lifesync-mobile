@@ -1,0 +1,11 @@
+- generic [ref=e37]:
+  - generic [ref=e41]:
+    - generic [ref=e42]: Mi historial médico
+    - generic [ref=e43]: Hola, Usuario Demo
+    - button "Perfil médico (tipo de sangre)" [ref=e44] [cursor=pointer]
+    - button "Alergias" [ref=e46] [cursor=pointer]
+    - button "Medicamentos" [ref=e48] [cursor=pointer]
+    - button "Contactos de emergencia" [ref=e50] [cursor=pointer]
+    - button "Vista de emergencia" [ref=e52] [cursor=pointer]
+    - button "Cerrar sesión" [ref=e55] [cursor=pointer]
+  - heading "Inicio" [level=1] [ref=e59]
