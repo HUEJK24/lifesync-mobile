@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Button, Text, StyleSheet, ScrollView } from 'react-native';
 import { z } from 'zod';
 import FormField from '../components/FormField';
 import { useAuth } from '../hooks/useAuth';
+import { colors, spacing, common } from '../../core/theme/theme';
 
 const schema = z.object({
   email: z.string().email('Correo inválido'),
@@ -33,15 +34,23 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.c}>
-      <FormField label="Correo" value={form.email} autoCapitalize="none" keyboardType="email-address"
-        onChangeText={(v) => setForm({ ...form, email: v })} error={errors.email} />
-      <FormField label="Contraseña" value={form.password} secureTextEntry
-        onChangeText={(v) => setForm({ ...form, password: v })} error={errors.password} />
-      {serverError ? <Text style={styles.err}>{serverError}</Text> : null}
-      <Button title={loading ? 'Ingresando...' : 'Ingresar'} onPress={onSubmit} disabled={loading} />
+    <View style={common.screen}>
+      <ScrollView contentContainerStyle={common.content}>
+        <Text style={common.title}>Iniciar sesión</Text>
+        <Text style={common.subtitle}>Accede a tu historial médico seguro.</Text>
+        <View style={common.card}>
+          <FormField label="Correo" value={form.email} autoCapitalize="none" keyboardType="email-address"
+            onChangeText={(v) => setForm({ ...form, email: v })} error={errors.email} />
+          <FormField label="Contraseña" value={form.password} secureTextEntry
+            onChangeText={(v) => setForm({ ...form, password: v })} error={errors.password} />
+          {serverError ? <Text style={styles.err}>{serverError}</Text> : null}
+          <Button title={loading ? 'Ingresando...' : 'Ingresar'} onPress={onSubmit} disabled={loading} color={colors.primary} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({ c: { flex: 1, padding: 24 }, err: { color: '#b00020', marginBottom: 12 } });
+const styles = StyleSheet.create({
+  err: { color: colors.danger, marginBottom: spacing.sm },
+});

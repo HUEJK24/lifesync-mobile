@@ -4,6 +4,7 @@ import { z } from 'zod';
 import FormField from '../components/FormField';
 import { LoadingState, ErrorState, EmptyState } from '../components/StateView';
 import { listContacts, createContact, deleteContact } from '../../data/remote/medicalApi';
+import { colors, spacing, common } from '../../core/theme/theme';
 
 const schema = z.object({ name: z.string().min(1,'Requerido'), phone: z.string().min(5,'Teléfono requerido') });
 
@@ -32,22 +33,30 @@ export default function ContactsScreen() {
 
   if (loading) return <LoadingState />;
   return (
-    <ScrollView contentContainerStyle={styles.c}>
-      <Text style={styles.h}>Registrar contacto</Text>
-      {error ? <ErrorState message={error} /> : null}
-      <FormField label="Nombre*" value={form.name} onChangeText={(v)=>setForm({...form,name:v})} error={errors.name} />
-      <FormField label="Relación" value={form.relationship} onChangeText={(v)=>setForm({...form,relationship:v})} />
-      <FormField label="Teléfono*" value={form.phone} keyboardType="phone-pad" onChangeText={(v)=>setForm({...form,phone:v})} error={errors.phone} />
-      <Button title="Agregar" onPress={add} />
-      <Text style={styles.h}>Contactos de emergencia</Text>
-      {items.length===0 ? <EmptyState message="Sin contactos registrados" /> : items.map(c=>(
-        <View key={c.id} style={styles.card}>
-          <Text style={styles.cardT}>{c.name} {c.is_primary ? '(Principal)' : ''}</Text>
-          <Text>{c.relationship || ''} · {c.phone}</Text>
-          <Button title="Eliminar" color="#b00020" onPress={()=>remove(c.id)} />
+    <View style={common.screen}>
+      <ScrollView contentContainerStyle={common.content}>
+        <Text style={common.title}>Contactos de emergencia</Text>
+        {error ? <ErrorState message={error} /> : null}
+        <View style={common.card}>
+          <FormField label="Nombre*" value={form.name} onChangeText={(v)=>setForm({...form,name:v})} error={errors.name} />
+          <FormField label="Relación" value={form.relationship} onChangeText={(v)=>setForm({...form,relationship:v})} />
+          <FormField label="Teléfono*" value={form.phone} keyboardType="phone-pad" onChangeText={(v)=>setForm({...form,phone:v})} error={errors.phone} />
+          <Button title="Agregar" onPress={add} color={colors.primary} />
         </View>
-      ))}
-    </ScrollView>
+        <Text style={styles.h}>Mis contactos</Text>
+        {items.length===0 ? <EmptyState message="Sin contactos registrados" /> : items.map(c=>(
+          <View key={c.id} style={common.card}>
+            <Text style={styles.cardT}>{c.name} {c.is_primary ? '(Principal)' : ''}</Text>
+            <Text style={styles.muted}>{c.relationship || ''} · {c.phone}</Text>
+            <Button title="Eliminar" color={colors.danger} onPress={()=>remove(c.id)} />
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
-const styles = StyleSheet.create({ c:{padding:24,gap:8}, h:{fontSize:18,fontWeight:'700',marginTop:12}, card:{padding:12,borderWidth:1,borderColor:'#ddd',borderRadius:8,marginTop:8,gap:4}, cardT:{fontWeight:'600'} });
+const styles = StyleSheet.create({
+  h: { fontSize: 18, fontWeight: '700', color: colors.text, marginTop: spacing.sm },
+  cardT: { fontWeight: '600', color: colors.text },
+  muted: { color: colors.muted },
+});

@@ -4,6 +4,7 @@ import FormField from '../components/FormField';
 import { LoadingState, ErrorState } from '../components/StateView';
 import { CameraPlaceholder, LocationPlaceholder } from '../components/SensorPlaceholders';
 import { getProfile, updateProfile } from '../../data/remote/medicalApi';
+import { colors, spacing, common } from '../../core/theme/theme';
 
 export default function ProfileScreen() {
   const [form, setForm] = useState({ blood_type: '', birth_date: '', notes: '' });
@@ -37,17 +38,25 @@ export default function ProfileScreen() {
 
   if (loading) return <LoadingState />;
   return (
-    <ScrollView contentContainerStyle={styles.c}>
-      {error ? <ErrorState message={error} /> : null}
-      <FormField label="Tipo de sangre" value={form.blood_type} onChangeText={(v)=>setForm({...form,blood_type:v})} />
-      <FormField label="Fecha de nacimiento (AAAA-MM-DD)" value={form.birth_date} onChangeText={(v)=>setForm({...form,birth_date:v})} />
-      <FormField label="Notas" value={form.notes} multiline onChangeText={(v)=>setForm({...form,notes:v})} />
-      {msg ? <Text style={styles.ok}>{msg}</Text> : null}
-      <Button title={saving ? 'Guardando...' : 'Guardar perfil'} onPress={save} disabled={saving} />
-      <Text style={styles.h}>Preparación de sensores</Text>
-      <CameraPlaceholder />
-      <LocationPlaceholder />
-    </ScrollView>
+    <View style={common.screen}>
+      <ScrollView contentContainerStyle={common.content}>
+        {error ? <ErrorState message={error} /> : null}
+        <Text style={common.title}>Perfil médico</Text>
+        <View style={common.card}>
+          <FormField label="Tipo de sangre" value={form.blood_type} onChangeText={(v)=>setForm({...form,blood_type:v})} />
+          <FormField label="Fecha de nacimiento (AAAA-MM-DD)" value={form.birth_date} onChangeText={(v)=>setForm({...form,birth_date:v})} />
+          <FormField label="Notas" value={form.notes} multiline onChangeText={(v)=>setForm({...form,notes:v})} />
+          {msg ? <Text style={styles.ok}>{msg}</Text> : null}
+          <Button title={saving ? 'Guardando...' : 'Guardar perfil'} onPress={save} disabled={saving} color={colors.primary} />
+        </View>
+        <Text style={styles.h}>Sensores y permisos</Text>
+        <CameraPlaceholder />
+        <LocationPlaceholder />
+      </ScrollView>
+    </View>
   );
 }
-const styles = StyleSheet.create({ c:{padding:24}, ok:{color:'green', marginBottom:12}, h:{fontSize:18,fontWeight:'700',marginTop:20} });
+const styles = StyleSheet.create({
+  ok: { color: colors.success, marginBottom: spacing.sm },
+  h: { fontSize: 18, fontWeight: '700', color: colors.text, marginTop: spacing.md },
+});
