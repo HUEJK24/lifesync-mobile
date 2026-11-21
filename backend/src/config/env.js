@@ -7,6 +7,9 @@ const required = ['DATABASE_URL', 'JWT_SECRET'];
 for (const key of required) {
   if (!process.env[key]) {
     // Validación temprana de configuración requerida
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(`Configuración requerida faltante: ${key}`);
+    }
     console.warn(`Configuración faltante: ${key}`);
   }
 }

@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: lifesync-backend
+    runtime: node
+    plan: 0.5c-512mb
+    rootDir: backend
+    region: oregon
+    autoDeployTrigger: commit
+    buildCommand: npm install
+    preDeployCommand: npm run migrate
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: lifesync-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: lifesync-db
+    region: oregon
+    plan: 0.1c-256mb
+    diskSizeGB: 15
+    postgresMajorVersion: "18"
+    databaseName: lifesync
+    user: lifesync
+    connectionPool: none
+    ipAllowList: []
