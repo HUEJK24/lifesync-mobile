@@ -4,10 +4,12 @@ import { z } from 'zod';
 import FormField from '../components/FormField';
 import { LoadingState, ErrorState, EmptyState } from '../components/StateView';
 import { listMedications, createMedication, deleteMedication } from '../../data/remote/medicalApi';
+import { useAlerts } from '../hooks/useAlerts';
 
 const schema = z.object({ name: z.string().min(1,'Requerido') });
 
 export default function MedicationsScreen() {
+  const { triggerAlert } = useAlerts();
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({ name:'', dosage:'', frequency:'', notes:'' });
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,7 @@ export default function MedicationsScreen() {
     const p = schema.safeParse(form);
     if(!p.success){ setFormError('El nombre es requerido'); return; }
     setFormError('');
-    try { await createMedication(form); setForm({name:'',dosage:'',frequency:'',notes:''}); load(); }
+    try { await createMedication(form); triggerAlert({ id: Date.now(), title: 'Recordatorio de medicamento', message: `Se agregó ${form.name}` }); setForm({name:'',dosage:'',frequency:'',notes:''}); load(); }
     catch(e){ setError(e?.response?.data?.error || 'Error al guardar'); }
   };
   const remove = async (id) => { try { await deleteMedication(id); load(); } catch(e){ setError('Error al eliminar'); } };

@@ -7,7 +7,14 @@
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.lifesync.mobile"
+      "package": "com.lifesync.mobile",
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "LifeSync usa la cámara para escanear recetas médicas.",
+        "NSLocationWhenInUseUsageDescription": "LifeSync usa la ubicación para geolocalizar incidentes médicos."
+      }
     }
   }
 }

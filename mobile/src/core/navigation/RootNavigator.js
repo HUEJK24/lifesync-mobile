@@ -11,6 +11,7 @@ import AllergiesScreen from '../../presentation/screens/AllergiesScreen';
 import MedicationsScreen from '../../presentation/screens/MedicationsScreen';
 import ContactsScreen from '../../presentation/screens/ContactsScreen';
 import EmergencyScreen from '../../presentation/screens/EmergencyScreen';
+import AlertsScreen from '../../presentation/screens/AlertsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ export default function RootNavigator() {
           <Stack.Screen name="Medications" component={MedicationsScreen} options={{ title: 'Medicamentos' }} />
           <Stack.Screen name="Contacts" component={ContactsScreen} options={{ title: 'Contactos de emergencia' }} />
           <Stack.Screen name="Emergency" component={EmergencyScreen} options={{ title: 'Emergencia' }} />
+            <Stack.Screen name="Alerts" component={AlertsScreen} options={{ title: 'Alertas' }} />
         </>
       )}
     </Stack.Navigator>

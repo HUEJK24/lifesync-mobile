@@ -13,6 +13,7 @@ export default function HomeScreen({ navigation }) {
       <Button title="Medicamentos" onPress={() => navigation.navigate('Medications')} />
       <Button title="Contactos de emergencia" onPress={() => navigation.navigate('Contacts')} />
       <Button title="Vista de emergencia" onPress={() => navigation.navigate('Emergency')} />
+      <Button title="Alertas médicas" onPress={() => navigation.navigate('Alerts')} />
       <View style={{ height: 16 }} />
       <Button title="Cerrar sesión" color="#b00020" onPress={logout} />
     </ScrollView>

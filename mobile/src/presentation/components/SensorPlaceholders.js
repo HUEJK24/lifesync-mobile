@@ -1,21 +1,39 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { usePermission } from '../hooks/usePermission';
 
-// Componentes visuales preparados para integración de cámara y GPS (Sprint 3)
 export function CameraPlaceholder() {
+  const { state, request, granted } = usePermission('camera');
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Cámara / Escaneo de recetas</Text>
-      <Text style={styles.sub}>Componente visual preparado para captura cuando se habilite el sensor y permisos.</Text>
+      <Text style={styles.sub}>Estado del permiso: {state}</Text>
+      {!granted ? (
+        <Button title="Solicitar permiso de cámara" onPress={request} disabled={state === 'requesting'} />
+      ) : (
+        <Text style={styles.ok}>Cámara disponible para escanear recetas.</Text>
+      )}
+      {state === 'denied' || state === 'restricted' || state === 'unavailable' ? (
+        <Text style={styles.warn}>Función de cámara deshabilitada. El historial clínico sigue disponible.</Text>
+      ) : null}
     </View>
   );
 }
 
 export function LocationPlaceholder() {
+  const { state, request, granted } = usePermission('location');
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Ubicación (GPS)</Text>
-      <Text style={styles.sub}>Componente visual preparado para geolocalización bajo autorización del usuario.</Text>
+      <Text style={styles.sub}>Estado del permiso: {state}</Text>
+      {!granted ? (
+        <Button title="Solicitar permiso de ubicación" onPress={request} disabled={state === 'requesting'} />
+      ) : (
+        <Text style={styles.ok}>GPS disponible para geolocalizar incidentes.</Text>
+      )}
+      {state === 'denied' || state === 'restricted' || state === 'unavailable' ? (
+        <Text style={styles.warn}>Rastreo en la nube deshabilitado. La app sigue funcionando offline.</Text>
+      ) : null}
     </View>
   );
 }
@@ -24,4 +42,6 @@ const styles = StyleSheet.create({
   box: { padding: 16, borderWidth: 1, borderStyle: 'dashed', borderColor: '#aaa', borderRadius: 10, gap: 6, marginTop: 12 },
   title: { fontWeight: '600' },
   sub: { color: '#555' },
+  ok: { color: 'green' },
+  warn: { color: '#b00020' },
 });
