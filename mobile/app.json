@@ -5,9 +5,22 @@
     "version": "0.2.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      "expo-splash-screen"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "package": "com.lifesync.mobile"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dc64cab7-c5e3-4a94-94b5-fba0d30c1d10"
+      }
     }
   }
 }
